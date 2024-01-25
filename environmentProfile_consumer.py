@@ -13,9 +13,9 @@ def insert_into_timeseries(r, timeseries_key, stream, msg_id, msg_body):
 
     # r.ts().add(timeseries_key, "*", msg_body["hello"], labels={"stream": dev_group, "msg_id": msg_id})
 
-def read_redis_stream(redis_host, redis_port, password, stream_name, consumer_group, consumer_name, timeseries_key):
+def read_redis_stream(redis_host, redis_port, stream_name, consumer_group, consumer_name, timeseries_key):
     # Connect to Redis with password
-    r = redis.Redis(host=redis_host, port=redis_port, password=password, decode_responses=True)
+    r = redis.Redis(host=redis_host, port=redis_port, decode_responses=True)
 
     # Create a consumer group (if not exists)
     print("Connected")
@@ -43,11 +43,10 @@ if __name__ == "__main__":
     # Set your Redis instance details
     redis_host = "localhost"
     timeseries_key = "temprature_data"
-    redis_port = 15400
+    redis_port = 6335
     stream_name = "temperature_sensor_data"
-    password = "ZUr6Cu5B"
     consumer_group = "analytics"
     consumer_name = "analytics_node1"
     timeseries_key = "temperature_timeseries"
     print("Starting")
-    read_redis_stream(redis_host, redis_port, password, stream_name, consumer_group, consumer_name, timeseries_key)
+    read_redis_stream(redis_host, redis_port, stream_name, consumer_group, consumer_name, timeseries_key)
